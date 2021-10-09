@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>vclip</name>
+  <version>1.0.0</version>
+  <description>The vclip package</description>
+
+  <maintainer email="hiraoka@jsk.imi.i.u-tokyo.ac.jp">Naoki-Hiraoka</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>hrpsys</build_depend>
+
+</package>
