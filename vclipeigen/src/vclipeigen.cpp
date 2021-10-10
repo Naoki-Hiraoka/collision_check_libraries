@@ -26,7 +26,7 @@ namespace vclipeigen {
                        Eigen::Vector3d& q1,
                        Eigen::Vector3d& q2//q1,q2はlocal系
                        ){
-    if(!mesh1 || mesh2) return false;
+    if(!mesh1 || !mesh2) return false;
 
     Vclip::Mat3 r1, r2;
     Vclip::Vect3 T1, T2;
@@ -47,14 +47,17 @@ namespace vclipeigen {
     X21.invert(X12);
     Vclip::FeaturePair Feature_Pair;
     // Vclip::VertexはVclip::Featureをprivate継承しているのでshare_ptrだとcastできない
-    Feature_Pair.first  = (const Vclip::Feature *)new Vclip::Vertex(mesh1->verts().front());
-    Feature_Pair.second = (const Vclip::Feature *)new Vclip::Vertex(mesh2->verts().front());
+    // Feature_Pair.first  = (const Vclip::Feature *)new Vclip::Vertex(mesh1->verts().front());
+    // Feature_Pair.second = (const Vclip::Feature *)new Vclip::Vertex(mesh2->verts().front());
+    Feature_Pair.first  = (const Vclip::Feature *)&mesh1->verts().front();
+    Feature_Pair.second = (const Vclip::Feature *)&mesh2->verts().front();
     Vclip::Vect3 cp1, cp2;
     const Vclip::Polyhedron* Vclip_Model1_raw = mesh1.get();
     const Vclip::Polyhedron* Vclip_Model2_raw = mesh2.get();
     distance = Vclip::Polyhedron::vclip(Vclip_Model1_raw, Vclip_Model2_raw, X12, X21, Feature_Pair.first, Feature_Pair.second, cp1, cp2, 0);
     q1[0] = cp1.x; q1[1] = cp1.y; q1[2] = cp1.z;
     q2[0] = cp2.x; q2[1] = cp2.y; q2[2] = cp2.z;
+
     return true;
   }
 }
