@@ -47,8 +47,6 @@ namespace vclipeigen {
     X21.invert(X12);
     Vclip::FeaturePair Feature_Pair;
     // Vclip::VertexはVclip::Featureをprivate継承しているのでshare_ptrだとcastできない
-    // Feature_Pair.first  = (const Vclip::Feature *)new Vclip::Vertex(mesh1->verts().front());
-    // Feature_Pair.second = (const Vclip::Feature *)new Vclip::Vertex(mesh2->verts().front());
     Feature_Pair.first  = (const Vclip::Feature *)&mesh1->verts().front();
     Feature_Pair.second = (const Vclip::Feature *)&mesh2->verts().front();
     Vclip::Vect3 cp1, cp2;
