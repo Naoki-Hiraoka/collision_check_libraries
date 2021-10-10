@@ -20,7 +20,7 @@ namespace vclipeigen {
                        const Eigen::Matrix3d& R2,
                        double& distance,
                        Eigen::Vector3d& q1,
-                       Eigen::Vector3d& q2);//q1,q2はworld系
+                       Eigen::Vector3d& q2);//q1,q2はlocal系. 最近傍点
 }
 
 

@@ -24,7 +24,7 @@ namespace vclipeigen {
                        const Eigen::Matrix3d& R2,
                        double& distance,
                        Eigen::Vector3d& q1,
-                       Eigen::Vector3d& q2//q1,q2はworld系
+                       Eigen::Vector3d& q2//q1,q2はlocal系
                        ){
     if(!mesh1 || mesh2) return false;
 
@@ -53,11 +53,8 @@ namespace vclipeigen {
     const Vclip::Polyhedron* Vclip_Model1_raw = mesh1.get();
     const Vclip::Polyhedron* Vclip_Model2_raw = mesh2.get();
     distance = Vclip::Polyhedron::vclip(Vclip_Model1_raw, Vclip_Model2_raw, X12, X21, Feature_Pair.first, Feature_Pair.second, cp1, cp2, 0);
-    Vclip::Vect3 cp1g, cp2g;
-    P1.xformPoint(cp1, cp1g);
-    P2.xformPoint(cp2, cp2g);
-    q1[0] = cp1g.x; q1[1] = cp1g.y; q1[2] = cp1g.z;
-    q2[0] = cp2g.x; q2[1] = cp2g.y; q2[2] = cp2g.z;
+    q1[0] = cp1.x; q1[1] = cp1.y; q1[2] = cp1.z;
+    q2[0] = cp2.x; q2[1] = cp2.y; q2[2] = cp2.z;
     return true;
   }
 }
