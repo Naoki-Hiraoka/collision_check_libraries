@@ -6,10 +6,10 @@
 
   <maintainer email="hiraoka@jsk.imi.i.u-tokyo.ac.jp">Naoki-Hiraoka</maintainer>
 
-  <license>BSD</license>
+  <license>The source code is freely distributed for educational, research and non-profit purposes. Permission to use the library in commercial products may be obtained from MERL - A Mitsubishi Electric Research Lab, 201 Broadway Cambridge, MA 02139</license>
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <build_depend>hrpsys</build_depend>
+  <depend>libqhull</depend>
 
 </package>
