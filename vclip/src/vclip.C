@@ -470,8 +470,8 @@ int Polyhedron::edgeFaceTest(const Feature *&e, const Feature *&f,
   Vect3 point;
   vector<int>::iterator c;
   vector<Real>::iterator l;
-  static vector<int> code(MAX_VERTS_PER_FACE); //(template can't use local type)
-  static vector<Real> lam(MAX_VERTS_PER_FACE);
+  vector<int> code; //(template can't use local type)
+  vector<Real> lam;
 
   if (F(f)->sides > (int)code.capacity()) {
     code.reserve(F(f)->sides);

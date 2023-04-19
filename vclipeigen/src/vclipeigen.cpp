@@ -5,10 +5,7 @@
 #include <mutex>
 
 namespace vclipeigen {
-  static std::mutex mtx; // vclipはスレッドセーフではないため
-
   std::shared_ptr<Vclip::Polyhedron> convertToVClipModel(const std::vector<Eigen::Vector3d>& vertices){
-    std::lock_guard<std::mutex> guard(mtx);
     std::shared_ptr<Vclip::Polyhedron> i_vclip_model = std::make_shared<Vclip::Polyhedron>();
     Vclip::VertFaceName vertName;
     for (int i = 0; i < vertices.size(); i ++ ) {
@@ -31,7 +28,6 @@ namespace vclipeigen {
                        Eigen::Vector3d& q2//q1,q2はlocal系
                        ){
     if(!mesh1 || !mesh2) return false;
-    std::lock_guard<std::mutex> guard(mtx);
 
     Vclip::Mat3 r1, r2;
     Vclip::Vect3 T1, T2;

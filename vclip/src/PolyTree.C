@@ -319,7 +319,7 @@ SoShapeKit *Polyhedron::buildInvModel() const
   SbVec3f sbv;
   // map:  Vertex *  -->  int, (we cast Vertex * to int for default hasher)
   //static hash_map<int, int> vertIndices(1000);
-  static map<int, int> vertIndices(1000);  
+  map<int, int> vertIndices;
   
   numVerts = verts_.size();
   numEdges = edges_.size();
@@ -609,11 +609,11 @@ int Polyhedron::buildHull()
   char options [200];
   char name[LONG_STR_SZ];
 
-  static vector<Vertex *> facelist(MAX_VERTS_PER_FACE);
+  vector<Vertex *> facelist;
 #define MAX_VERTS_PER_HULL 1000  // initial size; exceeding it breaks nothing
-  static vector<coordT> array      (MAX_VERTS_PER_HULL * 3);
-  static vector<Vertex *> hullVerts(MAX_VERTS_PER_HULL);
-  static vector<int> vertUsed      (MAX_VERTS_PER_HULL);
+  vector<coordT> array;
+  vector<Vertex *> hullVerts;
+  vector<int> vertUsed;
 #undef MAX_VERTS_PER_HULL
 
   //cout << "invoking qhull...   " << flush;
@@ -1004,9 +1004,9 @@ Polyhedron *readPolyhedron(istream &is)
   char s[LONG_STR_SZ]; 
   Vect3 coords;
   VertFaceName vertName, faceName;
-  static vector<Vertex *> facelist(MAX_VERTS_PER_FACE);
+  vector<Vertex *> facelist;
   //static hash_map<int, Vertex *> indexedVerts(1000); // map:  int -> Vertex *
-  static map<int, Vertex *> indexedVerts; // map:  int -> Vertex *
+  map<int, Vertex *> indexedVerts; // map:  int -> Vertex *
 
 
   indexedVerts.clear();

@@ -4,5 +4,7 @@ https://github.com/fkanehiro/hrpsys-base/tree/master/rtc/CollisionDetector/vclip
 
 - qhullの代わりにqhull_rを使用 (参考 http://www.qhull.org/html/qh-code.htm https://github.com/PointCloudLibrary/pcl/pull/4540).
   - qhull_rは、qhullをマルチスレッド対応したもの
-  - qhullとqhull_rは関数名が同じなので、qhull_rに依存したライブラリとqhullに依存したライブラリが混在していると実行時にエラーになる
-  - vclipはマルチスレッドに対応していないのでqhullを使ってもqhull_rを使っても変わらないのだが、qhull_rを使いたい他のライブラリがエラーになってしまうことを防ぐため、qhull_rを使っている
+  - qhullとqhull_rは関数名が同じなので、qhull_rに依存したライブラリとqhullに依存したライブラリが混在していると実行時にエラーになる場合があることに注意
+
+- vclipをマルチスレッドに対応
+  - static変数を、非static変数に変えた
