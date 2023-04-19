@@ -28,7 +28,7 @@ add_library(vclip SHARED
   )
 target_include_directories(vclip PUBLIC include)
 target_compile_definitions(vclip PUBLIC -DQHULL)
-target_link_libraries(vclip PUBLIC qhull)
+target_link_libraries(vclip PUBLIC qhull_r)
 
 #############
 ## Install ##

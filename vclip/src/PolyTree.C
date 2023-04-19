@@ -61,7 +61,7 @@ extern "C" {
 #if (defined __APPLE__)
 #include <pcl/surface/qhull.h>
 #else
-#include "qhull/qhull_a.h"
+#include "libqhull_r/qhull_ra.h"
 #endif
 }
 //char qh_version[] = "vclip 1.0";
@@ -649,31 +649,36 @@ int Polyhedron::buildHull()
     i++;
   }
 
+  qhT qh_qh;
+  qhT* qh = &qh_qh;
+  QHULL_LIB_CHECK
+  qh_zero(qh, stderr);
   ismalloc= False; 	// True if qh_freeqhull should 'free(qhullData)'
-  qh_init_A (stdin, stdout, stderr, 0, NULL);
-  exitcode= setjmp (qh errexit);
+  qh_init_A (qh, stdin, stdout, stderr, 0, NULL);
+  exitcode= setjmp (qh->errexit);
   if (exitcode) goto error;
   sprintf(options, "qhull Qx i s Tcv C-0");
   //sprintf(options, "qhull A0.9999 i s Tcv C-0");
-  qh_initflags (options);
-  qh_init_B (qhullData, npts, 3, ismalloc);
-  qh_qhull();
-  qh_check_output();
+  qh->NOerrexit= false; // QH6245 qhull initflags error: qh.NOerrexit was not cleared before calling qh_initflags().  It should be cleared after setjmp().  Exit qhull.
+  qh_initflags (qh, options);
+  qh_init_B (qh, qhullData, npts, 3, ismalloc);
+  qh_qhull(qh);
+  qh_check_output(qh);
 
   // build hull Polyhedron
 
   nf = 0;
   FORALLfacets {
     sprintf(name, "f%d", nf++);
-    vertices= qh_facet3vertex (facet);
+    vertices= qh_facet3vertex (qh, facet);
     facelist.clear();
     FOREACHvertex_(vertices) {
-      idx = qh_pointid(vertex->point);
+      idx = qh_pointid(qh, vertex->point);
       vertUsed[idx] = 1;
       facelist.push_back(hullVerts[idx]);
     }
     addFace(name, facelist, 1); // qhull generates a clockwise list
-    qh_settempfree(&vertices);
+    qh_settempfree(qh, &vertices);
   }
 
   // strip out unused vertices, count remaining ones
@@ -688,9 +693,9 @@ int Polyhedron::buildHull()
 
   //cout << nf << " faces, " << nv << " vertices " << endl;
 
-  qh NOerrexit= True;
-  qh_freeqhull (!qh_ALL);
-  qh_memfreeshort (&curlong, &totlong);
+  qh->NOerrexit= True;
+  qh_freeqhull (qh, !qh_ALL);
+  qh_memfreeshort (qh, &curlong, &totlong);
 
   return 0;
 
@@ -698,9 +703,9 @@ error:
   cerr << "error building convex hull of Polyhedron \a" << endl;
   cerr << "exitcode: " << exitcode << endl;
 
-  qh NOerrexit= True;
-  qh_freeqhull (!qh_ALL);
-  qh_memfreeshort (&curlong, &totlong);
+  qh->NOerrexit= True;
+  qh_freeqhull (qh, !qh_ALL);
+  qh_memfreeshort (qh, &curlong, &totlong);
 
   return 1;
 
