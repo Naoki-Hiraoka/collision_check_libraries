@@ -12,7 +12,7 @@ namespace vclipeigen {
       sprintf(vertName, "v%d", i);
       i_vclip_model->addVertex(vertName, Vclip::Vect3(vertices[i][0], vertices[i][1], vertices[i][2]));
     }
-    i_vclip_model->buildHull();
+    i_vclip_model->buildHull(); // ここで凸包を計算している
     i_vclip_model->check();
     return i_vclip_model;
   }
