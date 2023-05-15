@@ -1,0 +1,3 @@
+- git:
+    uri: https://github.com/Naoki-Hiraoka/cddeigen
+    local-name: cddeigen
