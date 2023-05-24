@@ -47,6 +47,7 @@ namespace bulleteigen {
 
   std::shared_ptr<btConvexShape> convertToBulletModel(const std::vector<Eigen::Vector3d>& vertices) {
     std::shared_ptr<btConvexHullShape> i_bullet_model = std::make_shared<btConvexHullShape>();
+    //i_bullet_model->setMargin(0.04);
     for (int i = 0; i < vertices.size(); i ++ ) {
       i_bullet_model->addPoint(btVector3(vertices[i][0], vertices[i][1], vertices[i][2]));
     }
@@ -84,10 +85,10 @@ namespace bulleteigen {
     simplexSolver.reset();
     res = btComputeGjkEpaPenetration(a, b, colDesc, simplexSolver, &distInfo);
 
-    distInfo.m_distance += CONVEX_DISTANCE_MARGIN;
-    distInfo.m_pointOnA += CONVEX_DISTANCE_MARGIN * distInfo.m_normalBtoA;
-    distInfo.m_distance += CONVEX_DISTANCE_MARGIN;
-    distInfo.m_pointOnB += - CONVEX_DISTANCE_MARGIN * distInfo.m_normalBtoA;
+    distInfo.m_distance += mesh1->getMargin();
+    distInfo.m_pointOnA += mesh1->getMargin() * distInfo.m_normalBtoA;
+    distInfo.m_distance += mesh2->getMargin();
+    distInfo.m_pointOnB += - mesh2->getMargin() * distInfo.m_normalBtoA;
 
     distance = distInfo.m_distance;
     Eigen::Vector3d q1_world, q2_world;
