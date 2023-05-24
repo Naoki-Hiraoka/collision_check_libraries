@@ -86,6 +86,7 @@ namespace bulleteigen {
 
     distInfo.m_distance += CONVEX_DISTANCE_MARGIN;
     distInfo.m_pointOnA += CONVEX_DISTANCE_MARGIN * distInfo.m_normalBtoA;
+    distInfo.m_distance += CONVEX_DISTANCE_MARGIN;
     distInfo.m_pointOnB += - CONVEX_DISTANCE_MARGIN * distInfo.m_normalBtoA;
 
     distance = distInfo.m_distance;
