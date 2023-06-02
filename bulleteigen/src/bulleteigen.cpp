@@ -54,6 +54,19 @@ namespace bulleteigen {
     return i_bullet_model;
   }
 
+  std::shared_ptr<btConvexShape> convertToBulletModel(const Eigen::MatrixXd& vertices){
+    if(vertices.cols() != 0 && vertices.rows() != 3){
+      std::cerr << __PRETTY_FUNCTION__ << " dimension mismatch" << std::endl;
+      return nullptr;
+    }
+    std::shared_ptr<btConvexHullShape> i_bullet_model = std::make_shared<btConvexHullShape>();
+    //i_bullet_model->setMargin(0.04);
+    for (int i = 0; i < vertices.cols(); i ++ ) {
+      i_bullet_model->addPoint(btVector3(vertices(0,i), vertices(1,i), vertices(2,i)));
+    }
+    return i_bullet_model;
+  }
+
   bool computeDistance(const std::shared_ptr<btConvexShape>& mesh1,
                        const Eigen::Vector3d& p1,
                        const Eigen::Matrix3d& R1,

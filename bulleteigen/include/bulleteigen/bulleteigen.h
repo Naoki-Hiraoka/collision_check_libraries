@@ -9,6 +9,7 @@ class btConvexShape;
 
 namespace bulleteigen {
   std::shared_ptr<btConvexShape> convertToBulletModel(const std::vector<Eigen::Vector3d>& vertices);
+  std::shared_ptr<btConvexShape> convertToBulletModel(const Eigen::MatrixXd& vertices); // [v1, v2, v3 ...]
 
   bool computeDistance(const std::shared_ptr<btConvexShape>& mesh1,
                        const Eigen::Vector3d& p1,
