@@ -24,4 +24,41 @@ namespace mesh_boolean_libigl{
     }
   }
 
+  bool boolean_union(const Eigen::MatrixXd& InV1, const Eigen::MatrixXi& InF1, const Eigen::MatrixXd& InV2, const Eigen::MatrixXi& InF2, Eigen::MatrixXd& OutV, Eigen::MatrixXi& OutF) {
+    Eigen::MatrixXd V3; // [v1 v2 v3 v4 ..]^T
+    Eigen::MatrixXi F3;
+    if(!igl::copyleft::cgal::mesh_boolean(InV1.transpose(),InF1.transpose(),InV2.transpose(),InF2.transpose(),igl::MESH_BOOLEAN_TYPE_UNION,V3,F3)) return false;
+    OutV = V3.transpose();
+    OutF = F3.transpose();
+    return true;
+  }
+
+  bool boolean_intersection(const Eigen::MatrixXd& InV1, const Eigen::MatrixXi& InF1, const Eigen::MatrixXd& InV2, const Eigen::MatrixXi& InF2, Eigen::MatrixXd& OutV, Eigen::MatrixXi& OutF) {
+    Eigen::MatrixXd V3; // [v1 v2 v3 v4 ..]^T
+    Eigen::MatrixXi F3;
+    if(!igl::copyleft::cgal::mesh_boolean(InV1.transpose(),InF1.transpose(),InV2.transpose(),InF2.transpose(),igl::MESH_BOOLEAN_TYPE_INTERSECT,V3,F3)) return false;
+    OutV = V3.transpose();
+    OutF = F3.transpose();
+    return true;
+  }
+
+  bool boolean_minus(const Eigen::MatrixXd& InV1, const Eigen::MatrixXi& InF1, const Eigen::MatrixXd& InV2, const Eigen::MatrixXi& InF2, Eigen::MatrixXd& OutV, Eigen::MatrixXi& OutF) {
+    Eigen::MatrixXd V3; // [v1 v2 v3 v4 ..]^T
+    Eigen::MatrixXi F3;
+    if(!igl::copyleft::cgal::mesh_boolean(InV1.transpose(),InF1.transpose(),InV2.transpose(),InF2.transpose(),igl::MESH_BOOLEAN_TYPE_MINUS,V3,F3)) return false;
+    OutV = V3.transpose();
+    OutF = F3.transpose();
+    return true;
+  }
+
+  bool boolean_xor(const Eigen::MatrixXd& InV1, const Eigen::MatrixXi& InF1, const Eigen::MatrixXd& InV2, const Eigen::MatrixXi& InF2, Eigen::MatrixXd& OutV, Eigen::MatrixXi& OutF) {
+    Eigen::MatrixXd V3; // [v1 v2 v3 v4 ..]^T
+    Eigen::MatrixXi F3;
+    if(!igl::copyleft::cgal::mesh_boolean(InV1.transpose(),InF1.transpose(),InV2.transpose(),InF2.transpose(),igl::MESH_BOOLEAN_TYPE_XOR,V3,F3)) return false;
+    OutV = V3.transpose();
+    OutF = F3.transpose();
+    return true;
+  }
+
+
 };
