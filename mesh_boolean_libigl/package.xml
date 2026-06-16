@@ -12,5 +12,5 @@
   <depend>qhulleigen</depend>
   <depend>mpfr</depend>
   <depend>libglfw3-dev</depend>
-  <depend>libcgal-dev</depend>
+  <depend>cgal</depend>
 </package>
