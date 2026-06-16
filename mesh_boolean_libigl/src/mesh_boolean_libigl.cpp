@@ -33,7 +33,7 @@ namespace mesh_boolean_libigl{
     return true;
   }
 
-  bool boolean_intersection(const Eigen::MatrixXd& InV1, const Eigen::MatrixXi& InF1, const Eigen::MatrixXd& InV2, const Eigen::MatrixXi& InF2, Eigen::MatrixXd& OutV, Eigen::MatrixXi& OutF) {
+  bool boolean_intersect(const Eigen::MatrixXd& InV1, const Eigen::MatrixXi& InF1, const Eigen::MatrixXd& InV2, const Eigen::MatrixXi& InF2, Eigen::MatrixXd& OutV, Eigen::MatrixXi& OutF) {
     Eigen::MatrixXd V3; // [v1 v2 v3 v4 ..]^T
     Eigen::MatrixXi F3;
     if(!igl::copyleft::cgal::mesh_boolean(InV1.transpose(),InF1.transpose(),InV2.transpose(),InF2.transpose(),igl::MESH_BOOLEAN_TYPE_INTERSECT,V3,F3)) return false;
